@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const w = 10
 	const scoreDisplay = document.querySelector('#score')
 	const startBtn = document.querySelector('#start-button')
+	const music = document.querySelector('#music')
 	let timerId
 	let score = 0
 	const colors = [
@@ -12,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	'#00ba38',
 	'#00fff8',
 	'#f7ff6e']
+	let audio = new Audio('tetris.mp3');
+
 
 
 	//Tetrominoes
@@ -96,11 +99,21 @@ document.addEventListener('DOMContentLoaded', () => {
 		else if(e.keyCode === 39) {
 			moveRight() }
 		else if(e.keyCode === 38) {
-			rotate()}
+			rotate() }
+		else if(e.keyCode === 40) {
+			normalSpeed()
+		}
 	}
 
 
 	document.addEventListener('keyup', control)
+	document.addEventListener('keydown', down)
+
+	function down(a) {
+		if(a.keyCode === 40) {
+			moveFast()
+		}
+	}
 
 	//freeze
 	function freeze() {
@@ -154,6 +167,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		draw()
 	}
 
+	function moveFast() {
+		timerId = setInterval(moveDown, 60)
+	}
+	function normalSpeed() {
+		clearInterval(timerId)
+	}
+
 	//show next tetro
 	const displaySquares = document.querySelectorAll('.mini-grid div')
 	const dw = 4
@@ -195,10 +215,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			timerId = setInterval(moveDown, 200)
 			nextRandom = Math.floor(Math.random() * theTetros.length)
 			displayShape()
-  			var audio = new Audio('tetris.mp3');
-			audio.play();
+ 
 		}
 	})
+
+	music.addEventListener('click', () => {
+		audio.play();
+	})
+
+
+
 
 	//scores!!!
 	function addScore() {
