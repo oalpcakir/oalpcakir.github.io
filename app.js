@@ -195,6 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			timerId = setInterval(moveDown, 200)
 			nextRandom = Math.floor(Math.random() * theTetros.length)
 			displayShape()
+  			var audio = new Audio('tetris.mp3');
+			audio.play();
 		}
 	})
 
